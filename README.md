@@ -104,9 +104,8 @@ Pada kondisi awal ketika belum terdapat produk, aplikasi menampilkan informasi p
 - Tombol tambah produk
 - Informasi data kosong
 
-![Home Empty](images/home_empty.png)
+<img width="457" height="441" alt="Screenshot 2026-06-03 170413" src="https://github.com/user-attachments/assets/95a31498-1359-4973-9bb6-a8b56b721a3c" />
 
----
 
 ## 2. Halaman Utama (Data Produk)
 
@@ -119,8 +118,7 @@ Setelah data berhasil ditambahkan, aplikasi menampilkan daftar produk dalam bent
 - Tombol edit
 - Tombol hapus
 
-<img width="457" height="441" alt="Screenshot 2026-06-03 170413" src="https://github.com/user-attachments/assets/d444da95-91b4-47e8-b325-4f2047f0ab49" />
-
+<img width="459" height="448" alt="Screenshot 2026-06-03 170055" src="https://github.com/user-attachments/assets/d06b23ab-9814-4710-b367-204b942aa8f6" />
 
 ## 3. Form Tambah Produk
 
