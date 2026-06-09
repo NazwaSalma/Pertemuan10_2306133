@@ -1,15 +1,11 @@
-# pertemuan10_2306133
-<img width="458" height="446" alt="Screenshot 2026-06-03 170340" src="https://github.com/user-attachments/assets/a8a975e3-abe1-4538-8a55-dc90f50e28c4" />
-
-<img width="459" height="448" alt="Screenshot 2026-06-03 170055" src="https://github.com/user-attachments/assets/2c43247c-78b3-4f3d-9839-6fd93372b8d3" />
-
-A new Flutter project.
 # Aplikasi CRUD Produk Flutter
 
 ## Deskripsi
+
 Aplikasi CRUD Produk berbasis Flutter yang menerapkan manajemen session menggunakan SharedPreferences. Pengguna dapat melakukan login, menambahkan produk, melihat daftar produk, mengubah data produk, menghapus produk, serta melakukan logout.
 
 # Fitur Aplikasi
+
 - Login Username dan Password
 - Validasi Form Login
 - Show / Hide Password
@@ -20,12 +16,17 @@ Aplikasi CRUD Produk berbasis Flutter yang menerapkan manajemen session mengguna
 - Mengubah Data Produk (Update)
 - Menghapus Data Produk (Delete)
 - Logout Session
+- Navigasi Multi Halaman
+- Menampilkan Detail Produk
 
 # Penjelasan Singkat
 
 ## Login Page
+
 Halaman login digunakan untuk memasukkan username dan password.
+
 Validasi yang diterapkan:
+
 - Username tidak boleh kosong
 - Username minimal 4 karakter
 - Password tidak boleh kosong
@@ -34,133 +35,156 @@ Validasi yang diterapkan:
 Password dapat ditampilkan atau disembunyikan menggunakan tombol visibility.
 
 ## Home Page
-Halaman utama menampilkan informasi pengguna yang sedang login dan daftar produk yang telah ditambahkan.
+
+Halaman utama menampilkan informasi pengguna yang sedang login dan ringkasan data produk.
 Komponen yang tersedia:
+
 - Foto profil pengguna
 - Nama pengguna
 - Tombol logout
-- Tombol tambah produk
-- Daftar produk
+- Total produk
+- Tombol Lihat Selengkapnya
 
-## Tambah Produk
+## Product Page
 
-Pengguna dapat menambahkan data produk baru melalui dialog form.
-Data yang diinput:
-- Nama Produk
-- Deskripsi Produk
-- Harga Produk
-Setelah tombol **Simpan** ditekan, data akan langsung ditambahkan ke daftar produk.
+Halaman produk digunakan untuk mengelola seluruh data produk.
 
-## Edit Produk
+Fitur yang tersedia:
 
-Pengguna dapat mengubah data produk yang sudah tersimpan.
-Data lama akan otomatis ditampilkan pada form sehingga pengguna dapat melakukan perubahan dengan mudah.
+- Menampilkan seluruh produk
+- Menambah produk
+- Mengubah produk
+- Menghapus produk
+- Membuka detail produk
 
-## Hapus Produk
+## Detail Product Page
 
-Pengguna dapat menghapus produk melalui tombol ikon tempat sampah yang tersedia pada setiap card produk.
+Halaman detail produk digunakan untuk menampilkan informasi produk secara lengkap.
+
+Informasi yang ditampilkan:
+
+- Nama produk
+- Harga produk
+- Deskripsi produk
 
 # Konsep Flutter yang Digunakan
+
 - StatefulWidget
 - Form Validation
 - SharedPreferences
 - Navigation
+- Navigator Push & Pop
 - TextEditingController
 - AlertDialog
 - ListView Builder
 - setState()
 - CRUD Operation
 
-# Alur Aplikasi
+# Refactoring & Navigasi Multi Halaman
 
-1. Pengguna membuka aplikasi.
-2. Sistem memeriksa status login pada SharedPreferences.
-3. Jika belum login maka pengguna diarahkan ke halaman Login.
-4. Pengguna memasukkan username dan password.
-5. Sistem melakukan validasi form.
-6. Jika valid, session login disimpan.
-7. Pengguna diarahkan ke halaman Home.
-8. Pengguna dapat:
-   - Menambah produk
-   - Melihat daftar produk
-   - Mengubah produk
-   - Menghapus produk
-9. Saat tombol Logout ditekan, session login dihapus.
-10. Pengguna kembali ke halaman Login.
+## Deskripsi
 
-# Dokumentasi Tampilan
+Pada tahap ini dilakukan refactoring untuk meningkatkan kualitas kode sehingga lebih terstruktur dan mudah dikembangkan. Selain itu diterapkan navigasi multi halaman agar setiap fitur memiliki halaman tersendiri sesuai fungsinya.
 
-<img width="458" height="446" alt="Screenshot 2026-06-03 170340" src="https://github.com/user-attachments/assets/3f7f1646-aaa1-414b-b8d2-9356c680880e" />
+## Perubahan Home Page
 
+Sebelum refactoring, halaman utama menampilkan seluruh daftar produk beserta fitur CRUD secara langsung.
+Setelah refactoring, Home Page diubah menjadi dashboard sederhana yang menampilkan:
 
-## 1. Halaman Utama (Data Kosong)
+- Informasi pengguna
+- Total produk
+- Ringkasan produk
+- Tombol **Lihat Selengkapnya**
 
-Pada kondisi awal ketika belum terdapat produk, aplikasi menampilkan informasi pengguna dan pesan bahwa belum ada data produk.
+### Tampilan Home Page Setelah Refactoring
+Menampilkan informasi pengguna yang sedang login beserta ringkasan data produk.
 
-**Fitur:**
-- Menampilkan profil pengguna
-- Menampilkan nama pengguna
-- Tombol logout
-- Tombol tambah produk
-- Informasi data kosong
+<img width="1600" height="798" alt="WhatsApp Image 2026-06-10 at 04 45 53" src="https://github.com/user-attachments/assets/38212b9b-7905-4a10-9472-4711db9f1a65" />
 
-<img width="457" height="441" alt="Screenshot 2026-06-03 170413" src="https://github.com/user-attachments/assets/95a31498-1359-4973-9bb6-a8b56b721a3c" />
+## Halaman Produk
 
+Halaman produk ditambahkan sebagai pusat pengelolaan data produk.
 
-## 2. Halaman Utama (Data Produk)
+### Fitur
 
-Setelah data berhasil ditambahkan, aplikasi menampilkan daftar produk dalam bentuk card.
+- Menampilkan seluruh produk
+- Menambah produk
+- Mengedit produk
+- Menghapus produk
+- Membuka detail produk
 
-**Fitur:**
-- Menampilkan nama produk
-- Menampilkan harga produk
-- Menampilkan deskripsi produk
-- Tombol edit
-- Tombol hapus
+### Tampilan Halaman Produk
+Menampilkan seluruh daftar produk serta fitur CRUD.
 
-<img width="459" height="448" alt="Screenshot 2026-06-03 170055" src="https://github.com/user-attachments/assets/d06b23ab-9814-4710-b367-204b942aa8f6" />
+<img width="737" height="901" alt="WhatsApp Image 2026-06-10 at 04 46 55" src="https://github.com/user-attachments/assets/cbcb7545-5303-49e8-bee8-b58802ac28a7" />
 
-## 3. Form Tambah Produk
+## Halaman Detail Produk
 
-Dialog tambah produk digunakan untuk memasukkan data produk baru.
+Halaman detail produk digunakan untuk menampilkan informasi produk secara lebih lengkap.
 
-Field yang tersedia:
+### Tampilan Detail Produk
 
-- Nama Produk
-- Deskripsi Produk
-- Harga Produk
+<img width="745" height="893" alt="WhatsApp Image 2026-06-10 at 04 47 42" src="https://github.com/user-attachments/assets/1759cfc5-e0b7-4968-a8dc-984509ea4812" />
 
-<img width="457" height="448" alt="Screenshot 2026-06-03 170220" src="https://github.com/user-attachments/assets/f9a46425-dd0a-4b30-a471-dad7ace9a0e1" />
+## Alur Navigasi
 
+```text
+Home Page
+    │
+    ▼
+Product Page
+    │
+    ▼
+Detail Product Page
+```
 
-## 4. Form Edit Produk
+Navigasi yang diterapkan:
 
-Dialog edit produk digunakan untuk memperbarui data produk yang sudah ada.
+1. Home Page → Product Page
+2. Product Page → Detail Product Page
+3. Detail Product Page → Product Page
+4. Product Page → Home Page
 
-Field yang tersedia:
+---
 
-- Nama Produk
-- Deskripsi Produk
-- Harga Produk
+# Struktur Project
 
-<img width="457" height="415" alt="Screenshot 2026-06-03 170259" src="https://github.com/user-attachments/assets/04cf344e-d960-4331-83b0-ed24e2030cf5" />
+```text
+lib/
+│
+├── main.dart
+│
+├── pages/
+│   ├── login_page.dart
+│   ├── home_page.dart
+│   ├── product_page.dart
+│   └── detail_product_page.dart
+│
+├── models/
+│   └── product_model.dart
+│
+├── services/
+│   └── shared_pref_service.dart
+│
+└── widgets/
+```
 
 # Hasil
 
 Aplikasi berhasil:
 
-- Menampilkan form login modern
-- Melakukan validasi username dan password
-- Menyimpan session login menggunakan SharedPreferences
-- Menampilkan informasi pengguna
-- Menambahkan data produk (Create)
-- Menampilkan daftar produk (Read)
-- Mengubah data produk (Update)
-- Menghapus data produk (Delete)
-- Menampilkan dialog tambah dan edit produk
-- Menghapus session saat logout
-- Mengarahkan pengguna kembali ke halaman login setelah logout
+- Melakukan login dan logout pengguna.
+- Menyimpan session menggunakan SharedPreferences.
+- Menampilkan dashboard pengguna.
+- Menampilkan total produk.
+- Menambahkan produk (Create).
+- Menampilkan produk (Read).
+- Mengubah produk (Update).
+- Menghapus produk (Delete).
+- Menampilkan detail produk.
+- Menerapkan navigasi multi halaman.
+- Melakukan refactoring struktur kode agar lebih terorganisir.
 
 # Kesimpulan
 
-Aplikasi CRUD Produk Flutter berhasil mengimplementasikan manajemen session menggunakan SharedPreferences serta operasi CRUD (Create, Read, Update, Delete) pada data produk. Aplikasi ini menunjukkan penerapan konsep dasar Flutter seperti StatefulWidget, Navigation, Form Validation, AlertDialog, dan Local Storage yang umum digunakan dalam pengembangan aplikasi mobile maupun web berbasis Flutter.
+Aplikasi CRUD Produk Flutter berhasil mengimplementasikan manajemen session menggunakan SharedPreferences, operasi CRUD produk, serta navigasi multi halaman. Melalui proses refactoring, struktur kode menjadi lebih terorganisir dan mudah dikembangkan sehingga aplikasi memiliki maintainability yang lebih baik serta pengalaman pengguna yang lebih optimal.
