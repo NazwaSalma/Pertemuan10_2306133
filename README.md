@@ -145,30 +145,6 @@ Navigasi yang diterapkan:
 3. Detail Product Page → Product Page
 4. Product Page → Home Page
 
----
-
-# Struktur Project
-
-```text
-lib/
-│
-├── main.dart
-│
-├── pages/
-│   ├── login_page.dart
-│   ├── home_page.dart
-│   ├── product_page.dart
-│   └── detail_product_page.dart
-│
-├── models/
-│   └── product_model.dart
-│
-├── services/
-│   └── shared_pref_service.dart
-│
-└── widgets/
-```
-
 # Hasil
 
 Aplikasi berhasil:
