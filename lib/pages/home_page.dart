@@ -1,27 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:pertemuan10_2306133/pages/product_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'login_page.dart';
 import '../models/product_model.dart';
-import 'package:pertemuan10_2306133/widgets/product_card.dart';
+import 'product_page.dart';
+import '../widgets/product_card.dart';
+import 'product_detail_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
-  //membuat state
+  //membuat state untuk home page
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
-//membuat class state
+//membuat class state untuk home page
 class _HomePageState extends State<HomePage> {
+  //inisialisasi variabel username
   String username = '';
-
-  //membuatvariabel utama untuk produk
+  //Membuat vairiabel utama untuk menyimpan data
   List<ProductModel> products = [];
-  int totalProduct = 0;
+  int totalProducts = 0;
 
-  //membuat init state
+  //membuat init state untuk mengambil data username dari shared preferences
   @override
   void initState() {
     super.initState();
@@ -29,20 +30,20 @@ class _HomePageState extends State<HomePage> {
     loadProducts();
   }
 
-  //membuat method load produk untuk menampilkan data produk
+  //membuat method loadProducts untuk menampilkan daftar product
   Future<void> loadProducts() async {
     final prefs = await SharedPreferences.getInstance();
-    List<String> productList = prefs.getStringList('products') ?? [];
-    totalProduct = productList.length;
+    List<String> productJsonList = prefs.getStringList('products') ?? [];
+    totalProducts = productJsonList.length;
     setState(() {
-      products = productList.reversed
+      products = productJsonList.reversed
           .take(3)
           .map((item) => ProductModel.fromJson(item))
           .toList();
     });
   }
 
-  //membuat method get user
+  //membuat method getUser untuk mengambil data username dari shared preferences(lokal storage)
   Future<void> getUser() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -50,81 +51,105 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  //Membuat method Logout
   Future<void> logout() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
-
-    if (!mounted) return;
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (_) => const LoginPage()),
     );
   }
 
+  //membuat widget builder
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F6FA),
+      backgroundColor: Colors.grey[200],
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              //profile card
               Container(
                 height: 100,
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 15,
-                  vertical: 12,
+                  horizontal: 16.0,
+                  vertical: 8.0,
                 ),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(16),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
-                      blurRadius: 10,
-                      offset: const Offset(0, 4),
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 5,
+                      offset: const Offset(0, 3),
                     ),
                   ],
                 ),
+
                 child: Row(
                   children: [
-                    const CircleAvatar(
-                      radius: 28,
-                      backgroundImage: NetworkImage(
-                        "https://picsum.photos/id/20/367/267",
+                    CircleAvatar(
+                      radius: 30,
+                      backgroundImage: const NetworkImage(
+                        'https://fastly.picsum.photos/id/20/3670/2462.jpg?hmac=CmQ0ln-k5ZqkdtLvVO23LjVAEabZQx2wOaT4pyeG10I',
                       ),
                     ),
-                    const SizedBox(width: 15),
+                    const SizedBox(width: 16),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment
-                            .center, // Menyeimbangkan posisi teks di tengah secara vertikal
                         children: [
                           Text(
-                            "hallo, selamat datang!",
+                            "Selamat Datang",
                             style: TextStyle(
-                              fontSize: 14,
+                              fontSize: 16,
                               color: Colors.grey[600],
                             ),
                           ),
-                          const SizedBox(height: 5),
+                          const SizedBox(height: 4),
                           Row(
                             children: [
                               Text(
                                 username,
-                                style: const TextStyle(
-                                  fontSize: 22,
+                                style: TextStyle(
+                                  fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              const SizedBox(width: 6),
+                              const SizedBox(width: 8),
                               const Icon(
                                 Icons.verified,
-                                color: Colors.green,
+                                color: Colors.blue,
                                 size: 20,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 8),
+                          Stack(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 12.0,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: const Color.fromARGB(
+                                    255,
+                                    228,
+                                    231,
+                                    233,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      blurRadius: 3,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
@@ -133,28 +158,21 @@ class _HomePageState extends State<HomePage> {
                     ),
                     ElevatedButton(
                       onPressed: logout,
-                      style: ElevatedButton.styleFrom(
-                        shape:
-                            const CircleBorder(), // Membuat tombol logout berbentuk bulat agar lebih rapi
-                        padding: const EdgeInsets.all(12),
-                        backgroundColor: Colors.grey[100],
-                        elevation: 0,
-                      ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.logout,
-                        size: 24,
-                        color: Colors.red,
+                        color: const Color.fromARGB(255, 200, 15, 15),
+                        size: 16,
                       ),
                     ),
                   ],
                 ),
               ),
 
-              const SizedBox(height: 20),
+              SizedBox(height: 10),
               Row(
-                mainAxisAlignment: .spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Total produk ${totalProduct.toString()}"),
+                  Text("Total Produk ${totalProducts.toDouble()}"),
                   TextButton(
                     onPressed: () {
                       Navigator.push(
@@ -164,40 +182,26 @@ class _HomePageState extends State<HomePage> {
                         ),
                       );
                     },
-                    child: Text("Lihat Selengkapnya"),
+                    child: Text("Lihat Semua Produk"),
                   ),
                 ],
               ),
-              const SizedBox(height: 15),
+
+              SizedBox(height: 20),
               Expanded(
                 child: products.isEmpty
-                    ? const Center(child: Text("belum ada produk"))
+                    ? const Center(child: Text('Belum ada produk'))
                     : ListView.builder(
                         itemCount: products.length,
                         itemBuilder: (context, index) {
                           final product = products[index];
-
-                          return Card(
-                            margin: const EdgeInsets.only(bottom: 12),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: ListTile(
-                              contentPadding: const EdgeInsets.all(15),
-                              title: Text(
-                                product.name,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              subtitle: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const SizedBox(height: 5),
-                                  Text("Rp ${product.price}"),
-                                  const SizedBox(height: 5),
-                                  Text(product.description),
-                                ],
+                          return ProductCard(
+                            product: product,
+                            onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) =>
+                                    ProductDetailPage(product: product),
                               ),
                             ),
                           );
